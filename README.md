@@ -17,6 +17,10 @@ pip install qself
 Fill me in please! Don’t forget code examples:
 
 ``` python
+from qself.oura import say_hello
+```
+
+``` python
 say_hello("Test")
 ```
 
