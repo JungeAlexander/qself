@@ -17,7 +17,7 @@ pip install qself
 Fill me in please! Don’t forget code examples:
 
 ``` python
-1+1
+say_hello("Test")
 ```
 
-    2
+    'Hello Test!'

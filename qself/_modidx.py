@@ -5,4 +5,6 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://JungeAlexander.github.io',
                 'git_url': 'https://github.com/JungeAlexander/qself',
                 'lib_path': 'qself'},
-  'syms': {'qself.core': {'qself.core.foo': ('core.html#foo', 'qself/core.py')}}}
+  'syms': { 'qself.core': {'qself.core.foo': ('core.html#foo', 'qself/core.py')},
+            'qself.oura': { 'qself.oura.foo': ('oura.html#foo', 'qself/oura.py'),
+                            'qself.oura.say_hello': ('oura.html#say_hello', 'qself/oura.py')}}}
