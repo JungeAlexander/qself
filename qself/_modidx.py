@@ -7,6 +7,4 @@ d = { 'settings': { 'branch': 'main',
                 'lib_path': 'qself'},
   'syms': { 'qself.oura': { 'qself.oura.OuraAPIClient': ('oura.html#ouraapiclient', 'qself/oura.py'),
                             'qself.oura.OuraAPIClient.__call__': ('oura.html#__call__', 'qself/oura.py'),
-                            'qself.oura.OuraAPIClient.__init__': ('oura.html#__init__', 'qself/oura.py'),
-                            'qself.oura.foo': ('oura.html#foo', 'qself/oura.py'),
-                            'qself.oura.say_hello': ('oura.html#say_hello', 'qself/oura.py')}}}
+                            'qself.oura.OuraAPIClient.__init__': ('oura.html#__init__', 'qself/oura.py')}}}
