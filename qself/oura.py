@@ -4,6 +4,7 @@
 __all__ = ['OuraAPIClient']
 
 # %% ../00_oura.ipynb 2
+from datetime import date, datetime, timedelta
 import logging
 import os
 
