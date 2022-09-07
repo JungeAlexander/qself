@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "qself",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "qself",
+    "section": "Install",
+    "text": "Install\npip install qself"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "qself",
+    "section": "How to use",
+    "text": "How to use\n\nimport os\n\nfrom qself.oura import OuraAPIClient\n\n\nclient = OuraAPIClient(os.environ[\"OURA_PERSONAL_ACCESS_TOKEN\"])\n\nNote that this assumes that the OURA_PERSONAL_ACCESS_TOKEN environment variable contains a personal access token which you can create here."
+  },
+  {
+    "objectID": "oura.html",
+    "href": "oura.html",
+    "title": "oura",
+    "section": "",
+    "text": "source\n\nOuraAPIClient\n\n OuraAPIClient (personal_token)\n\nInitialize self. See help(type(self)) for accurate signature.\n\nclient = OuraAPIClient(os.environ[\"OURA_PERSONAL_ACCESS_TOKEN\"])\n\n\nda = client(\"daily_activity\", \"2022-01-01\", \"2022-01-02\")\n\n\nassert da[\"data\"][0][\"day\"] == \"2022-01-01\"\n\n\nfor d in da[\"data\"]:\n    print(sorted(d.keys()))\n\n['active_calories', 'average_met_minutes', 'class_5_min', 'contributors', 'day', 'equivalent_walking_distance', 'high_activity_met_minutes', 'high_activity_time', 'inactivity_alerts', 'low_activity_met_minutes', 'low_activity_time', 'medium_activity_met_minutes', 'medium_activity_time', 'met', 'meters_to_target', 'non_wear_time', 'resting_time', 'score', 'sedentary_met_minutes', 'sedentary_time', 'steps', 'target_calories', 'target_meters', 'timestamp', 'total_calories']\n\n\nLonger time frames are supported, too, using automatically handled continuation tokens:\n\nda = client(\"daily_activity\", \"2010-01-01\", \"2022-06-30\")"
+  },
+  {
+    "objectID": "CHANGELOG.html",
+    "href": "CHANGELOG.html",
+    "title": "qself",
+    "section": "",
+    "text": "Fix imports in oura.py.\n\n\n\nFirst working OuraClient.\n\n\n\nExample code."
+  }
+]
