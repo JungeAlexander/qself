@@ -21,13 +21,13 @@ class WorkoutIntensityEnum(str, Enum):
 
 class OuraWorkoutData(BaseModel):
     activity: str = Field(..., description="Name of the activity")
-    calories: int = Field(..., description="Active calorie burn")
+    calories: int | None = Field(..., description="Active calorie burn")
     day: datetime.date = Field(..., description="Date of the activity")
-    distance: float = Field(..., description="") # TODO what is this? steps?
+    distance: float | None = Field(..., description="Distance covered")
     end_datetime: datetime.datetime = Field(..., description="End date and time")
     intensity: WorkoutIntensityEnum = Field(..., description="Workout intensity")
-    label: str | None = Field(..., description="Label of the activity")  # TODO check what this looks like
-    source: str = Field(..., description="Source of the activity") # TODO check what this looks like
+    label: str | None = Field(..., description="Label of the activity")
+    source: str = Field(..., description="Source of the activity")
     start_datetime: datetime.datetime = Field(..., description="Start date and time")
 
 class OuraWorkoutResponse(OuraResponse):
