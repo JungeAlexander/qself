@@ -11,6 +11,8 @@ import os
 from dotenv import load_dotenv
 import requests
 
+from .oura_schema import OuraResponse, OuraWorkoutResponse
+
 # %% ../00_oura.ipynb 3
 class OuraAPIClient:
 
@@ -27,6 +29,19 @@ class OuraAPIClient:
         "workout": "v2",
     }
 
+    ENDPOINT_TO_RESPONSE_SCHEMA= {
+        "activity": OuraResponse,
+        "bedtime": OuraResponse,
+        "daily_activity": OuraResponse,
+        "heartrate": OuraResponse,
+        "personal_info": OuraResponse,
+        "readiness": OuraResponse,
+        "session": OuraResponse,
+        "sleep": OuraResponse,
+        "tag": OuraResponse,
+        "workout": OuraWorkoutResponse,
+    }
+
     API_VERSION_TO_BASE_URL = {
         "v1": "https://api.ouraring.com/v1",
         "v2": "https://api.ouraring.com/v2/usercollection",
@@ -39,7 +54,7 @@ class OuraAPIClient:
 
     def __call__(
         self, endpoint: str, start: str = None, end: str = None, *, next_token=None, i=0
-    ):
+    ) -> OuraResponse:
         api_version = self.ENDPOINT_TO_API_VERSION[endpoint]
         if api_version != "v2" and next_token is not None:
             raise ValueError("Only v2 API supports next_token argument.")
@@ -68,4 +83,4 @@ class OuraAPIClient:
             ).isoformat()
             j_new = self(endpoint, new_start, end, next_token=j["next_token"], i=i + 1)
             j["data"].extend(j_new["data"])
-        return j
+        return self.ENDPOINT_TO_RESPONSE_SCHEMA[endpoint].parse_obj(j)

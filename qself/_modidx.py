@@ -7,4 +7,10 @@ d = { 'settings': { 'branch': 'main',
                 'lib_path': 'qself'},
   'syms': { 'qself.oura': { 'qself.oura.OuraAPIClient': ('oura.html#ouraapiclient', 'qself/oura.py'),
                             'qself.oura.OuraAPIClient.__call__': ('oura.html#__call__', 'qself/oura.py'),
-                            'qself.oura.OuraAPIClient.__init__': ('oura.html#__init__', 'qself/oura.py')}}}
+                            'qself.oura.OuraAPIClient.__init__': ('oura.html#__init__', 'qself/oura.py')},
+            'qself.oura_schema': { 'qself.oura_schema.OuraResponse': ('oura_schemas.html#ouraresponse', 'qself/oura_schema.py'),
+                                   'qself.oura_schema.OuraWorkoutData': ('oura_schemas.html#ouraworkoutdata', 'qself/oura_schema.py'),
+                                   'qself.oura_schema.OuraWorkoutResponse': ( 'oura_schemas.html#ouraworkoutresponse',
+                                                                              'qself/oura_schema.py'),
+                                   'qself.oura_schema.WorkoutIntensityEnum': ( 'oura_schemas.html#workoutintensityenum',
+                                                                               'qself/oura_schema.py')}}}
