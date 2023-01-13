@@ -11,7 +11,7 @@ import os
 from dotenv import load_dotenv
 import requests
 
-from .oura_schema import OuraResponse, OuraWorkoutResponse
+from .oura_models import OuraResponse, OuraWorkoutResponse
 
 # %% ../00_oura.ipynb 3
 class OuraAPIClient:
@@ -29,7 +29,7 @@ class OuraAPIClient:
         "workout": "v2",
     }
 
-    ENDPOINT_TO_RESPONSE_SCHEMA= {
+    ENDPOINT_TO_RESPONSE_MODEL= {
         "activity": OuraResponse,
         "bedtime": OuraResponse,
         "daily_activity": OuraResponse,
@@ -73,7 +73,11 @@ class OuraAPIClient:
             params["next_token"] = next_token
         headers = {"Authorization": f"Bearer {self.personal_token}"}
         response = requests.request("GET", url, headers=headers, params=params)
-        j = response.json()  # TODO check status code and handle errors
+        j = response.json()
+        self.ENDPOINT_TO_RESPONSE_SCHEMA[endpoint].parse_obj(j)
+
+        
+        # FIME - parse schema here already instead of working with raw dict
         if ("next_token" in j) and (j["next_token"] is not None):
             logging.debug(
                 f"Using continuation token {i}, last_date {j['data'][-1]['day']}: {j['next_token']}"
@@ -82,5 +86,5 @@ class OuraAPIClient:
                 date.fromisoformat(j["data"][-1]["day"]) + timedelta(days=1)
             ).isoformat()
             j_new = self(endpoint, new_start, end, next_token=j["next_token"], i=i + 1)
-            j["data"].extend(j_new["data"])
-        return self.ENDPOINT_TO_RESPONSE_SCHEMA[endpoint].parse_obj(j)
+            j["data"].extend(j_new["data"]) # FIXME this mixes dict and OuraResponse
+        return 
