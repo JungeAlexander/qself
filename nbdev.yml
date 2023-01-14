@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "qself"
+  site-url: "https://JungeAlexander.github.io/qself"
+  description: "Tools to extract personal, quantitative data from various sources."
+  repo-branch: main
+  repo-url: "https://github.com/JungeAlexander/qself"

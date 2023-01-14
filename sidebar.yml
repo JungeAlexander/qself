@@ -3,3 +3,4 @@ website:
     contents:
       - index.ipynb
       - 00_oura.ipynb
+      - 01_oura_models.ipynb
