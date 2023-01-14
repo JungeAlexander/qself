@@ -11,9 +11,9 @@ import os
 from dotenv import load_dotenv
 import requests
 
-from .oura_models import OuraResponse, OuraWorkoutResponse
+from .oura_models import OuraGenericResponse, OuraWorkoutResponse
 
-# %% ../00_oura.ipynb 3
+# %% ../00_oura.ipynb 4
 class OuraAPIClient:
 
     ENDPOINT_TO_API_VERSION = {
@@ -29,16 +29,16 @@ class OuraAPIClient:
         "workout": "v2",
     }
 
-    ENDPOINT_TO_RESPONSE_MODEL= {
-        "activity": OuraResponse,
-        "bedtime": OuraResponse,
-        "daily_activity": OuraResponse,
-        "heartrate": OuraResponse,
-        "personal_info": OuraResponse,
-        "readiness": OuraResponse,
-        "session": OuraResponse,
-        "sleep": OuraResponse,
-        "tag": OuraResponse,
+    ENDPOINT_TO_RESPONSE_MODEL = {
+        "activity": OuraGenericResponse,
+        "bedtime": OuraGenericResponse,
+        "daily_activity": OuraGenericResponse,
+        "heartrate": OuraGenericResponse,
+        "personal_info": OuraGenericResponse,
+        "readiness": OuraGenericResponse,
+        "session": OuraGenericResponse,
+        "sleep": OuraGenericResponse,
+        "tag": OuraGenericResponse,
         "workout": OuraWorkoutResponse,
     }
 
@@ -54,7 +54,7 @@ class OuraAPIClient:
 
     def __call__(
         self, endpoint: str, start: str = None, end: str = None, *, next_token=None, i=0
-    ) -> OuraResponse:
+    ) -> OuraGenericResponse:
         api_version = self.ENDPOINT_TO_API_VERSION[endpoint]
         if api_version != "v2" and next_token is not None:
             raise ValueError("Only v2 API supports next_token argument.")
@@ -74,17 +74,12 @@ class OuraAPIClient:
         headers = {"Authorization": f"Bearer {self.personal_token}"}
         response = requests.request("GET", url, headers=headers, params=params)
         j = response.json()
-        self.ENDPOINT_TO_RESPONSE_SCHEMA[endpoint].parse_obj(j)
-
-        
-        # FIME - parse schema here already instead of working with raw dict
-        if ("next_token" in j) and (j["next_token"] is not None):
-            logging.debug(
-                f"Using continuation token {i}, last_date {j['data'][-1]['day']}: {j['next_token']}"
+        model = self.ENDPOINT_TO_RESPONSE_MODEL[endpoint].parse_obj(j)
+        if model.next_token is not None:
+            logger.debug(
+                f"Using continuation token {i}, last_date {model.data[-1].day}: {model.next_token}"
             )
-            new_start = (
-                date.fromisoformat(j["data"][-1]["day"]) + timedelta(days=1)
-            ).isoformat()
-            j_new = self(endpoint, new_start, end, next_token=j["next_token"], i=i + 1)
-            j["data"].extend(j_new["data"]) # FIXME this mixes dict and OuraResponse
-        return 
+            new_start = (model.data[-1].day + timedelta(days=1)).isoformat()
+            j_new = self(endpoint, new_start, end, next_token=model.next_token, i=i + 1)
+            model.data.extend(j_new.data)
+        return model
