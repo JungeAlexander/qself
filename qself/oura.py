@@ -73,6 +73,7 @@ class OuraAPIClient:
             params["next_token"] = next_token
         headers = {"Authorization": f"Bearer {self.personal_token}"}
         response = requests.request("GET", url, headers=headers, params=params)
+        response.raise_for_status()
         j = response.json()
         model = self.ENDPOINT_TO_RESPONSE_MODEL[endpoint].parse_obj(j)
         if model.next_token is not None:
