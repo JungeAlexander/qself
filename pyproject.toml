@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "qself"
+version = "0.0.4"
+description = "Tools to extract personal, quantitative data from various sources."
+authors = ["Alexander Junge <alexander.junge@gmail.com>"]
+license = "Apache Software License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^1.0.0"
+pandas = "^2.0.1"
+httpx = "^0.24.1"
+pydantic = "^1.10.8"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.2"
+black = "^23.3.0"
+pytest = "^7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
