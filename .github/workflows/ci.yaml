@@ -11,8 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.10, 3.11]
-        poetry-version: [1.5.0]
+        python-version: ["3.10", "3.11"]
+        poetry-version: ["1.5.0"]
 
     runs-on: ubuntu-latest
 
@@ -40,3 +40,5 @@ jobs:
     - name: Test with pytest
       run: |
         python -m poetry run python -m pytest -v tests
+      env:
+          OURA_PERSONAL_ACCESS_TOKEN: ${{ secrets.OURA_PERSONAL_ACCESS_TOKEN }}
