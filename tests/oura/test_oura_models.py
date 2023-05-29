@@ -20,4 +20,4 @@ def test_oura_workout_response():
     }
 
     owr = OuraWorkoutResponse.parse_obj(example_workout_response)
-    assert owr.data[0].activity == "walking1"
+    assert owr.data[0].activity == "walking"
