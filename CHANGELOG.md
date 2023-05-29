@@ -1,6 +1,14 @@
 # Release notes
 
-<!-- do not remove -->
+## 0.0.4 (unreleased)
+
+### Public
+
+- Add Oura response validation
+
+### Internal
+
+- Switch to poetry for packaging
 
 ## 0.0.3
 
@@ -13,5 +21,3 @@ First working `OuraClient`.
 ## 0.0.1
 
 Example code.
-
-
