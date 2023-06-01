@@ -3,6 +3,8 @@ qself
 
 > Tools to extract personal, quantitative data from various sources.
 
+[![Documentation Status](https://readthedocs.org/projects/qself/badge/?version=latest)](https://qself.readthedocs.io/en/latest/?badge=latest)
+
 ## Install
 
 ``` sh
