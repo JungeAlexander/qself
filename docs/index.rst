@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Hi, welcome to qself's documentation!
-=================================
+=====================================
 
 .. toctree::
    :maxdepth: 2
