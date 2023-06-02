@@ -1,0 +1,4 @@
+﻿qself
+=====
+
+.. automodule:: qself
