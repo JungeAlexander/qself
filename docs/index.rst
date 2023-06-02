@@ -10,6 +10,8 @@ Hi, welcome to qself's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   usage
+   api
 
 
 Indices and tables
