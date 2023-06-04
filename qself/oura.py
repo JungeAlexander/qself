@@ -1,3 +1,5 @@
+# Functionality to interact with the Oura API.
+
 __all__ = ["OuraAPIClient"]
 
 from datetime import date, datetime, timedelta
@@ -11,6 +13,10 @@ from .oura_models import OuraGenericResponse, OuraWorkoutResponse
 
 
 class OuraAPIClient:
+    """
+    Client for the Oura API.
+    """
+
     ENDPOINT_TO_API_VERSION = {
         "activity": "v1",
         "bedtime": "v1",
@@ -44,7 +50,12 @@ class OuraAPIClient:
 
     API_VERSION_TO_DATE_POSTFIX = {"v1": "", "v2": "_date"}
 
-    def __init__(self, personal_token):
+    def __init__(self, personal_token: str):
+        """Initialize the client.
+
+        :param personal_token: personal access token for the Oura API
+        :type personal_token: str
+        """
         self.personal_token = personal_token
 
     def __call__(
