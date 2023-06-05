@@ -6,4 +6,4 @@ API References
 .. toctree::
    :maxdepth: 1
 
-   ./reference/qself.rst
+   ./reference/oura.rst
