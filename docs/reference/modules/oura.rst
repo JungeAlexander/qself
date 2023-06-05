@@ -1,0 +1,2 @@
+.. automodule:: qself.oura
+   :members:

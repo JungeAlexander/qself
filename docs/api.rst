@@ -1,7 +1,9 @@
-API
-===
+API References
+==============
 
-.. autosummary::
-   :toctree: generated
+| Documentation on methods, classes, and APIs in qself.
 
-   qself
+.. toctree::
+   :maxdepth: 1
+
+   ./reference/qself.rst
