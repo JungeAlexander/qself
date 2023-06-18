@@ -13,7 +13,7 @@ build:
   jobs:
     post_create_environment:
       # Install poetry
-      - pipx install poetry
+      - pip install poetry
       # Tell poetry to not use a virtual environment
       - poetry config virtualenvs.create false
     post_install:
