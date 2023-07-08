@@ -1,16 +1,20 @@
+# Functionality to interact with the Oura API.
+
 __all__ = ["OuraAPIClient"]
 
 from datetime import date, datetime, timedelta
 import logging
-import os
 
-from dotenv import load_dotenv
 import httpx
 
 from .oura_models import OuraGenericResponse, OuraWorkoutResponse
 
 
 class OuraAPIClient:
+    """
+    Client for the Oura API.
+    """
+
     ENDPOINT_TO_API_VERSION = {
         "activity": "v1",
         "bedtime": "v1",
@@ -44,7 +48,12 @@ class OuraAPIClient:
 
     API_VERSION_TO_DATE_POSTFIX = {"v1": "", "v2": "_date"}
 
-    def __init__(self, personal_token):
+    def __init__(self, personal_token: str):
+        """Initialize the client.
+
+        :param personal_token: personal access token for the Oura API
+        :type personal_token: str
+        """
         self.personal_token = personal_token
 
     def __call__(
@@ -53,9 +62,22 @@ class OuraAPIClient:
         start: str | None = None,
         end: str | None = None,
         *,
-        next_token=None,
-        i=0,
+        next_token: str | None = None,
     ) -> OuraGenericResponse:
+        """Make a request to the Oura API.
+
+        :param endpoint: the endpoint to query
+        :type endpoint: str
+        :param start: start date formatted "YYYY-MM-DD", defaults to None
+        :type start: str | None, optional
+        :param end: end date formatted "YYYY-MM-DD", defaults to None
+        :type end: str | None, optional
+        :param next_token: continuation token returned by previous API calls, defaults to None
+        :type next_token: str | None, optional
+        :raises ValueError: invalid parameter
+        :return: Oura API response object
+        :rtype: OuraGenericResponse
+        """
         api_version = self.ENDPOINT_TO_API_VERSION[endpoint]
         if api_version != "v2" and next_token is not None:
             raise ValueError("Only v2 API supports next_token argument.")
@@ -79,9 +101,9 @@ class OuraAPIClient:
         model = self.ENDPOINT_TO_RESPONSE_MODEL[endpoint].parse_obj(j)
         if model.next_token is not None:
             logging.debug(
-                f"Using continuation token {i}, last_date {model.data[-1].day}: {model.next_token}"
+                f"Using continuation token. Last_date {model.data[-1].day}: {model.next_token}"
             )
             new_start = (model.data[-1].day + timedelta(days=1)).isoformat()
-            j_new = self(endpoint, new_start, end, next_token=model.next_token, i=i + 1)
+            j_new = self(endpoint, new_start, end, next_token=model.next_token)
             model.data.extend(j_new.data)
         return model

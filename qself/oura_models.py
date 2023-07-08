@@ -14,17 +14,29 @@ from pydantic import BaseModel, Extra, Field
 
 
 class OuraBaseResponse(BaseModel):
+    """
+    Basic Oura API response model
+    """
+
     data: list
     next_token: str | None = Field(..., description="Continuation token")
 
 
 class WorkoutIntensityEnum(str, Enum):
+    """
+    Enum for workout intensity
+    """
+
     easy = "easy"
     moderate = "moderate"
     hard = "hard"
 
 
 class OuraGenericData(BaseModel):
+    """
+    Generic Oura data point
+    """
+
     day: datetime.date = Field(..., description="Date of the activity")
 
     class Config:
@@ -32,10 +44,18 @@ class OuraGenericData(BaseModel):
 
 
 class OuraGenericResponse(OuraBaseResponse):
+    """
+    Generic Oura API response model including a list of data points
+    """
+
     data: list[OuraGenericData]
 
 
 class OuraWorkoutData(BaseModel):
+    """
+    Oura workout data point
+    """
+
     activity: str = Field(..., description="Name of the activity")
     calories: int | None = Field(..., description="Active calorie burn")
     day: datetime.date = Field(..., description="Date of the activity")
@@ -48,4 +68,8 @@ class OuraWorkoutData(BaseModel):
 
 
 class OuraWorkoutResponse(OuraBaseResponse):
+    """
+    Oura API response model including a list of workout data points
+    """
+
     data: list[OuraWorkoutData]
